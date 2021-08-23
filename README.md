@@ -8,3 +8,12 @@ El presente trabajo se integra de 3 partes:
 
 
 ### Instalacion
+
+Backend y base de datos:
+``` docker-compose up ```
+
+Frontend:
+```sudo npm install --save```
+
+Correr frontend : 
+```ionic serve --lab```
