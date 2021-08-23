@@ -1,14 +1,6 @@
 version: '3'
 
 services:
-
-    ts-compiler:
-        image:                   harmish/typescript
-        volumes:
-            -                    ./src/frontend/ts:/workspace 
-            -                    ./src/frontend/js:/output 
-        command:                 "tsc --project /workspace --outDir /output --watch --pretty true"
-
     mysql-server:
         image:                   mysql:5.7
         hostname:                mysql-server
@@ -36,14 +28,14 @@ services:
     node-backend:
         image:                   abassi/nodejs-server:10.0-dev
         volumes:
-            -                    ./src/backend:/home/node/app/src
-            -                    ./src/frontend:/home/node/app/static
+            -                    ./backend:/home/node/app/src
+            -                    ./frontend:/home/node/app/static
         networks:
             -                    app-fullstack-net
         depends_on:
             -                    mysql-server
         ports: 
-            -                    "8000:3000"
+            -                    "3000:3000"
         command:                 nodemon /home/node/app/src/index.js
 
 networks:
