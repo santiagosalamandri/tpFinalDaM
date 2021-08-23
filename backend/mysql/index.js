@@ -2,12 +2,20 @@ var mysql = require('mysql');
 var configMysql = {
     connectionLimit: 10,
     host: 'mysql-server',
-    port: 3307,
+    port: 3306,
     user: 'root',
     password: 'userpass',
     database: 'DAM'
 }
 var pool = mysql.createPool(configMysql);
+
+console.error('ESPERANDO.');
+seconds=15;
+var waitTill = new Date(new Date().getTime() + seconds * 1000);
+while(waitTill > new Date()){}
+
+console.error('TERMINO ESPERA.');
+
 pool.getConnection((err, connection) => {
     if (err) {
         switch (err.code) {
