@@ -35,4 +35,16 @@ routerMedicion.post('/agregar', function(req, res) {
     });
 });
 
+//Espera recibir por parámetro un id de dispositivo y devuelve ultima medicion
+routerMedicion.get('/:idDispositivo/ultima', function(req, res) {
+    pool.query('Select * from Mediciones where dispositivoId=? order by fecha asc limit 1', [req.params.idDispositivo], function(err, result, fields) {
+        if (err) {
+            res.send(err).status(400);
+            return;
+        }
+        res.send(result);
+    });
+});
+
+
 module.exports = routerMedicion;
