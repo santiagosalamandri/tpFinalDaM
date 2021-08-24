@@ -6,7 +6,7 @@ export class Medicion{
 
     constructor(medicion,fecha,valor,dispositivoId){
         this._medicionId=medicion;
-        this.fecha=fecha;
+        this._fecha=fecha;
         this._valor=valor;
         this._dispositivoId=dispositivoId;
     }

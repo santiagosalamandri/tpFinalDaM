@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MedicionService } from '../services/medicion.service';
 import * as moment from 'moment';
 import { Medicion } from '../model/Medicion';
+import { Log } from '../model/Log';
 
 import * as Highcharts from 'highcharts';
 declare var require: any;
@@ -21,7 +22,7 @@ export class DispositivoPage implements OnInit {
   private valorObtenido:number=0;
   public myChart;
   private chartOptions;
-
+  private estaAbierto:number=0;
   constructor(private router:ActivatedRoute, private mServ:MedicionService) { 
     setTimeout(()=>{
       console.log("Cambio el valor del sensor.");
@@ -34,7 +35,10 @@ export class DispositivoPage implements OnInit {
               valueSuffix: ' kPA'
           }
       }]});
+      this.generarChart();
+
     },1000);
+
   }
   
   ngOnInit() {
@@ -54,20 +58,30 @@ export class DispositivoPage implements OnInit {
     // let a : Medicion= new Medicion(99,moment().format("YYYY-MM-DD hh:mm:ss"),99,1);
 
     //opción 2, utilizar el objeto Date y hacer el formato necesario a mano.
-    let current_datetime = new Date()
-    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds() 
-    let a : Medicion= new Medicion(99,formatted_date,current_datetime.getSeconds(),1);
    
-    this.mServ.agregarMedicion(a).then((med)=>{
-      console.log(med)
-    });
-    
+    console.log("HEREEEE");
   }
 
   ionViewDidEnter() {
     this.generarChart();
   }
-
+  toggleValvula(){
+    let current_datetime = new Date()
+    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds() 
+   let log:Log=new Log(1,formatted_date,this.estaAbierto,this.idDispositivo);
+   this.mServ.agregarLog(this.idDispositivo,log).then((med)=>{
+    console.log(med)
+  });
+    if(this.estaAbierto==1){
+     let a : Medicion= new Medicion(99,formatted_date,current_datetime.getSeconds(),1);
+     
+      this.mServ.agregarMedicion(a).then((med)=>{
+        console.log(med)
+      });
+      this.estaAbierto=0;
+    }
+    else this.estaAbierto=1;
+  }
   generarChart() {
     this.chartOptions={
       chart: {

@@ -5,14 +5,33 @@
                 <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title>Dispositivo - {{this.idDispositivo}}</ion-title>
+        <ion-title>Detalle del sensor</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <div *ngIf="this.medicion !=null">Medida del sensor: {{this.medicion.valor}}</div>
-    <div id="highcharts" style="display: block;"	></div>
-    <ion-button color="primary">Primary</ion-button>
-    <ion-button color="secondary">Secondary</ion-button>
-    </ion-content>
-
+        <ion-grid>
+            <ion-row class="ion-align-items-center">
+                <ion-col size="12" class="ion-text-center">
+                    <div *ngIf="this.medicion !=null">Medida del sensor: {{this.medicion.valor}} </div>
+                    <div id="highcharts" style="display: block;"></div>
+                </ion-col>
+            </ion-row>
+            <ion-row class="ion-align-items-center">
+                <ion-col size="12" class="ion-text-center">
+                    <ion-button (click)="this.toggleValvula()" *ngIf="this.estaAbierto == 1" expand="block" color="danger">CERRAR ELECTROVALVULA</ion-button>
+                    <ion-button (click)="this.toggleValvula()" *ngIf="this.estaAbierto != 1" expand="block" color="primary">ABRIR ELECTROVALVULA</ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-row class="ion-align-items-center">
+                <ion-col size="12" class="ion-text-center">
+                    <ion-button  expand="block" color="secondary">VER TODAS LAS MEDICIONES</ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-row class="ion-align-items-center">
+                <ion-col size="12" class="ion-text-center">
+                    <ion-button  expand="block" color="tertiary">VER LOG RIEGOS</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+</ion-content>
