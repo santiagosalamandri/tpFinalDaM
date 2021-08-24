@@ -8,8 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DispositivoService {
  urlApi="http://localhost:3000";
-  // listado:Array<Dispositivo> = new Array<Dispositivo>();
-  
+ 
   constructor(private _http: HttpClient ) {
    }
  

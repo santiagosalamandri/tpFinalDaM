@@ -23,6 +23,11 @@ export class MedicionService {
       return mediciones;
     });
   };
+  getLogsByIdDispositivo(id):Promise<Log[]>{     
+    return this._http.get(this.urlApi+"/api/dispositivo/"+id+"/logs").toPromise().then((logs:Log[])=>{
+      return logs;
+    });
+  };
   agregarLog(id,log:Log){
     return this._http.post(this.urlApi+"/api/dispositivo/"+id+"/agregarLog",{fecha:log.fecha,apertura:log.apertura,electrovalvulaId:log.electrovalvulaId}).toPromise().then((result)=>{
       return result;

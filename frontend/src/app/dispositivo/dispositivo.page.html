@@ -10,28 +10,63 @@
 </ion-header>
 
 <ion-content>
-        <ion-grid>
-            <ion-row class="ion-align-items-center">
-                <ion-col size="12" class="ion-text-center">
-                    <div *ngIf="this.medicion !=null">Medida del sensor: {{this.medicion.valor}} </div>
-                    <div id="highcharts" style="display: block;"></div>
-                </ion-col>
-            </ion-row>
-            <ion-row class="ion-align-items-center">
-                <ion-col size="12" class="ion-text-center">
-                    <ion-button (click)="this.toggleValvula()" *ngIf="this.estaAbierto == 1" expand="block" color="danger">CERRAR ELECTROVALVULA</ion-button>
-                    <ion-button (click)="this.toggleValvula()" *ngIf="this.estaAbierto != 1" expand="block" color="primary">ABRIR ELECTROVALVULA</ion-button>
-                </ion-col>
-            </ion-row>
-            <ion-row class="ion-align-items-center">
-                <ion-col size="12" class="ion-text-center">
-                    <ion-button  expand="block" color="secondary">VER TODAS LAS MEDICIONES</ion-button>
-                </ion-col>
-            </ion-row>
-            <ion-row class="ion-align-items-center">
-                <ion-col size="12" class="ion-text-center">
-                    <ion-button  expand="block" color="tertiary">VER LOG RIEGOS</ion-button>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+    <ion-grid>
+        <ion-row class="ion-align-items-center">
+            <ion-col size="12" class="ion-text-center">
+                <div *ngIf="this.medicion !=null">Medida del sensor: {{this.medicion.valor}} </div>
+                <div id="highcharts" style="display: block;"></div>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+            <ion-col size="12" class="ion-text-center">
+                <ion-button (click)="this.toggleValvula()" *ngIf="this.estaAbierto == 1" expand="block" color="danger">
+                    CERRAR ELECTROVALVULA</ion-button>
+                <ion-button (click)="this.toggleValvula()" *ngIf="this.estaAbierto != 1" expand="block" color="primary">
+                    ABRIR ELECTROVALVULA</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+            <ion-col size="12" class="ion-text-center">
+                <ion-button (click)="this.toggleMediciones()" *ngIf="this.mostrarMediciones == true" expand="block"
+                    color="danger">OCULTAR MEDICIONES</ion-button>
+                <ion-button (click)="this.toggleMediciones()" *ngIf="this.mostrarMediciones != true" expand="block"
+                    color="primary">VER TODAS LAS MEDICIONES</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+            <ion-col size="12" class="ion-text-center">
+                <ion-button (click)="this.toggleLogs()" *ngIf="this.mostrarLogs == true" expand="block" color="danger">
+                    CERRAR MEDICIONES</ion-button>
+                <ion-button (click)="this.toggleLogs()" *ngIf="this.mostrarLogs != true" expand="block" color="primary">
+                    VER LOG RIEGOS</ion-button>
+
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center" *ngIf="this.mostrarMediciones == true">
+            <ion-col size="12" class="ion-text-center">
+                <h2>Mediciones:</h2>
+                <ion-list>
+                    <ion-item *ngFor="let med of this.mediciones">
+                        <ion-label>
+                            <h3>medicionId:{{med.medicionId}} Valor: {{med.valor}} fecha: {{med.fecha}} dispositivoId:{{med.dispositivoId}}</h3>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>            
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center" *ngIf="this.mostrarLogs == true">
+            <ion-col size="12" class="ion-text-center">
+                <h2>Logs:</h2>
+
+                <ion-list>
+                    <ion-item *ngFor="let log of this.logs">
+                        <ion-label>
+                            <h3>LogId:{{log.logRiegoId}} Apertura: {{log.apertura}} fecha: {{log.fecha}} electrovalvula:{{log.electrovalvulaId}}</h3>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
 </ion-content>
