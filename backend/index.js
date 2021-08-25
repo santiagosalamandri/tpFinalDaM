@@ -3,8 +3,9 @@ var app = express();
 var PORT = 3000;
 
 const cors = require('cors');
-app.use(cors());
+var corsOptions = {origin:'*',optionsSucessStatus:200};
 
+app.use(cors());
 //ruteo dispositivo
 var routerDisp = require('./routes/dispositivo');
 //ruteo dispositivo

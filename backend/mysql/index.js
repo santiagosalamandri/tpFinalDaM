@@ -10,7 +10,7 @@ var configMysql = {
 var pool = mysql.createPool(configMysql);
 
 console.error('ESPERANDO.');
-seconds=15;
+seconds=1;
 var waitTill = new Date(new Date().getTime() + seconds * 1000);
 while(waitTill > new Date()){}
 
